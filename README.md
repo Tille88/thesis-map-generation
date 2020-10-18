@@ -11,23 +11,15 @@ Exportable map examples for GIS thesis on opacity-mapping
         - [x] save-method (in OpacityMap~=Main)
     - [x] Save canvas context (on full load event?)
         - https://openlayers.org/en/latest/examples/tile-load-events.html
-- [ ] Data layer generation (Perlin noise)
-    - https://github.com/josephg/noisejs
-    - https://gist.github.com/esimov/586a439f53f62f67083e
-    - https://p5js.org/reference/#/p5/noise
-    - https://github.com/processing/p5.js/blob/main/src/math/noise.js
-    - https://genekogan.com/code/p5js-perlin-noise/
+- [x] Data layer generation (Perlin noise)
 - [ ] Merge with map layer as opacity - feasibility web technology (first Canvas web-API)
-
+- TRY EXPORTING TO MAKE SURE OKAY
 **SUNDAY FINISHED MIN CHECKPOINT**
 
 - [ ] Design data layer 
     - [ ] color (pure RBG)
-    - [ ] outline (pure matching RBG)
     - [ ] data value pixel mapping storage
-
-**SUNDAY OPTIONAL CHECKPOINT**
-
+    - [ ] outline (pure matching RBG)
 - [ ] Marker object generation (incl. range and value extraction)
     - [ ] location of marker storage - Data point as fraction x and y dimension
     - [ ] hard coded version (in canvas)

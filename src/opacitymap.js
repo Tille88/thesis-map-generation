@@ -1,11 +1,15 @@
 import {CreateBaseMap} from './basemap';
+import {CreateNoiseDataLayer} from './noisedata';
 import cfg from './cfg';
 
 export const CreateOpacityMap = function({} = {}){
     return {
         // Initialization function
         init: function(){
-            CreateBaseMap({mapSource: "cached"}).init();
+            let baseMap = CreateBaseMap({mapSource: "cached"});
+            baseMap.init();
+            let noiseData = CreateNoiseDataLayer();
+            baseMap.renderProm.then(noiseData.init);
         },
         // Create easy-to-extract save mechs
         save: function(){
@@ -18,7 +22,7 @@ export const CreateOpacityMap = function({} = {}){
             var canvas = document.querySelector(`#${cfg.target} canvas`);
             var image = new Image();
             image.src = canvas.toDataURL("image/png");
-            debugger;
+            // debugger;
             return image;        
         }
     }

@@ -6,7 +6,7 @@ import OSM from 'ol/source/OSM';
 import cfg from './cfg';
 import mapData from '../assets/basemap/greenwhich_src.json';
 import baseMapImageURL from '../assets/basemap/greenwhich.png';
-
+import {createCanvasContext, getCanvasContext} from './utils';
 
 
 
@@ -14,11 +14,12 @@ export const CreateBaseMap = function({
     mapSource = 'OSM',
 } = {}){
     return {
+        renderProm: null,
         init: function(){
             if(mapSource==='OSM'){
-                renderOSM();
+                this.renderProm = renderOSM();
             } else {
-                renderCached();
+                this.renderProm = renderCached();
             }
         }
     }
@@ -42,29 +43,19 @@ function renderOSM(){
             zoom: 14
         })
         });
+        return Promise.resolve;
 }
 
 
-// Cached version
 function renderCached(){
-    var targetDiv = document.getElementById(cfg.target);
-    var canvas = document.createElement("canvas");
-    canvas.width = targetDiv.clientWidth;
-    canvas.height = targetDiv.clientHeight;
-    targetDiv.appendChild(canvas);
-    var ctx = canvas.getContext('2d');
-    var img = new Image();
-    img.src = mapData.src;
-    // img.src = baseMapImageURL;
-    img.onload = function() {
-      ctx.drawImage(img, 0, 0);
-    };
-
-    // var ctx = document.getElementById('canvas').getContext('2d');
-    // var img = new Image();
-    // img.onload = function() {
-    //   ctx.drawImage(img, 0, 0);
-    // };
-    // img.src = 'https://mdn.mozillademos.org/files/5395/backdrop.png';
-  
+    createCanvasContext();
+    var ctx = getCanvasContext()
+    return loadImage(mapData.src).then(img => ctx.drawImage(img, 0, 0));
 }
+
+const loadImage = (urlImgData) => new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = urlImgData;
+    img.addEventListener('load', () => resolve(img));
+  });
+  
