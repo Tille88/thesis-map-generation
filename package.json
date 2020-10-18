@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build --public-url . index.html"
+    "build": "parcel build --public-url . index.html",
+    "watch": "parcel watch --public-url . index.html"
   },
   "dependencies": {
     "ol": "^5.1.2"
