@@ -6,10 +6,10 @@ Exportable map examples for GIS thesis on opacity-mapping
 
 - [x] Base layer pull (open street map, leaflet or **OpenLayers**) strategy basics
     - [x] 1:1 ratio
-    - [ ] Extract/refactor to BaseMap-class
-        - [ ] render method using two strategies: saved canvas context or OpenLayers
-        - [ ] save-method (in OpacityMap~=Main)
-    - [ ] Save canvas context (on full load event?)
+    - [x] Extract/refactor to BaseMap-class
+        - [x] render method using two strategies: saved canvas context or OpenLayers
+        - [x] save-method (in OpacityMap~=Main)
+    - [x] Save canvas context (on full load event?)
         - https://openlayers.org/en/latest/examples/tile-load-events.html
 - [ ] Data layer generation (Perlin noise)
     - https://github.com/josephg/noisejs
