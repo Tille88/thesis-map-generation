@@ -14,25 +14,27 @@ Exportable map examples for GIS thesis on opacity-mapping
 - [x] Data layer generation (Perlin noise)
 - [x] Merge with map layer as opacity - feasibility web technology (first Canvas web-API)
 - [x] TRY EXPORTING TO MAKE SURE OKAY
-
-- [ ] Design data layer = refactoring and addition of outline/smaller opacity data layer
-    - [ ] color (pure RBG)
-    - [ ] data value pixel mapping storage
-    - [ ] outline (pure matching RBG)
-    - [ ] Seed images (data layers) for replication
+- [x] Make use of composite from Canvas-API itself, not manually merging layers
+- [x] Design data layer = refactoring and addition of outline/smaller opacity data layer
+    - [x] Seed images (data layers) for replication
+    - [x] data value pixel mapping storage
+    - [x] color (pure RBG)
+        - [x] Square and face off towards edges as number between 0 and 1
+    - [x] outline (pure matching RBG, fully opaque)
+**SUN OCT 25th FINISHED MIN CHECKPOINT**
+- [ ] Ensure drawing order (background then opacity)
+- [ ] Legend object types generation (using object oriented programming)
+- [ ] Able to toggle marker representation
 - [ ] Marker object generation (incl. range and value extraction)
     - [ ] location of marker storage - Data point as fraction x and y dimension
     - [ ] hard coded version (in canvas)
     - [ ] overlay pulsing CSS version
-**SAT OCT 24th FINISHED MIN CHECKPOINT**
-
-- [ ] Legend object types generation (using object oriented programming)
-- [ ] Able to toggle marker representation
-**SUN OCT 25th FINISHED MIN CHECKPOINT**
-
 - [ ] Generate test images, and use browser API to save as large image files
     - https://www.tutorialspoint.com/HTML5-Canvas-to-PNG-File
     - https://stackoverflow.com/questions/923885/capture-html-canvas-as-gif-jpg-png-pdf
+    - https://github.com/puppeteer/puppeteer/ (get image src to disk)
+    - https://attacomsian.com/blog/nodejs-base64-encode-decode
+    - https://stackoverflow.com/questions/6926016/nodejs-saving-a-base64-encoded-image-to-disk
 - [ ] Downsample or generate different sizes programmatically
 - [ ] Export all layers separately for one to be shown in intro-page
 

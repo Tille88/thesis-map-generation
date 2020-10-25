@@ -12,3 +12,7 @@ export function getCanvasContext(){
     var canvas = document.querySelector(`#${cfg.target} canvas`);
     return canvas.getContext('2d');
 }
+
+export function distance(x1, y1, x2, y2){
+    return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
+}

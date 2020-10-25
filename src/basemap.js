@@ -49,13 +49,21 @@ function renderOSM(){
 
 function renderCached(){
     createCanvasContext();
-    var ctx = getCanvasContext()
-    return loadImage(mapData.src).then(img => ctx.drawImage(img, 0, 0));
+    // var ctx = getCanvasContext()
+    // return loadImage(mapData.src).then(img => ctx.drawImage(img, 0, 0));
+    return loadImage(mapData.src);
 }
 
 const loadImage = (urlImgData) => new Promise((resolve, reject) => {
+    var ctx = getCanvasContext();
     const img = new Image();
     img.src = urlImgData;
-    img.addEventListener('load', () => resolve(img));
+    // img.addEventListener('load', () => resolve(img));
+    img.addEventListener('load', () => {
+        // TBR
+        // ctx.drawImage(img, 0, 0);
+        resolve(console.log("BACKGROUND"))
+        // resolve(console.log("BACKGROUND"));
+    });
   });
   

@@ -9,7 +9,9 @@ export const CreateOpacityMap = function({} = {}){
             let baseMap = CreateBaseMap({mapSource: "cached"});
             baseMap.init();
             let noiseData = CreateNoiseDataLayer();
-            baseMap.renderProm.then(noiseData.init);
+            // baseMap.renderProm.then(noiseData.init);
+            console.log("baseMap.renderProm", baseMap.renderProm);
+            baseMap.renderProm.then(noiseData.init.apply(noiseData));
         },
         // Create easy-to-extract save mechs
         save: function(){
