@@ -21,9 +21,10 @@ Exportable map examples for GIS thesis on opacity-mapping
     - [x] color (pure RBG)
         - [x] Square and face off towards edges as number between 0 and 1
     - [x] outline (pure matching RBG, fully opaque)
-**SUN OCT 25th FINISHED MIN CHECKPOINT**
-- [ ] Ensure drawing order (background then opacity)
+- [x] Ensure drawing order (background then opacity) - silly mistake, executed function early, not wrapped in function TO BE EXECUTED
+- [x] Clean up color representation outline from cfg
 - [ ] Legend object types generation (using object oriented programming)
+**SAT OCT 31st FINISHED MIN CHECKPOINT**
 - [ ] Able to toggle marker representation
 - [ ] Marker object generation (incl. range and value extraction)
     - [ ] location of marker storage - Data point as fraction x and y dimension

@@ -57,18 +57,29 @@ function opacityCanvasComposite(){
     }
     // Outline TODO alter depending on color
     ctx.rect(xMinPx, yMinPx, (xMaxPx-xMinPx)+1, (yMaxPx-yMinPx)+1);
-    ctx.strokeStyle = 'rgb(255,0,0,255)';
+    ctx.strokeStyle = getRGBOutlineCSSString();
     ctx.stroke();
     // Draw image data to the canvas
     // TODO make into promise for outside...
     // TEMP
     createImageBitmap(imageData)
         .then((imageBitmap) => ctx.drawImage(imageBitmap, 0, 0));
-    console.log("NOISEADDED");
-        // debugger;
     return alphaStorage;
 }
 
+
+function getRGBOutlineCSSString(){
+    switch (cfg.opacityCol) {
+        case opColChoiceEnum.r:
+            return 'rgb(255,0,0,255)';
+        case opColChoiceEnum.g:
+            return 'rgb(0,255,0,255)';
+        case opColChoiceEnum.b:
+            return 'rgb(0,0,255,255)';
+        default:
+            return 'rgb(0,0,0,0)';
+    }
+}
 
 // function opacityCanvasComposite(){
 //     let ctx = getCanvasContext();
