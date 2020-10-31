@@ -1,8 +1,4 @@
-export const opColChoiceEnum = {
-    r: 0,
-    g: 1,
-    b: 2
-}
+import {opColChoiceEnum} from './enums';
 
 export default {
     target: 'map',
