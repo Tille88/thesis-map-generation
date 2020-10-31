@@ -3,7 +3,7 @@ import {getCanvasContext} from './utils';
 import cfg from './cfg';
 import {scaleLinear} from 'd3-scale';
 import Cairo from '../assets/fonts/Cairo-Regular.ttf'
-import baseMapSampleData from '../assets/baseMapSample/basemapSample.json'
+import mapSample from '../assets/baseMapSample/basemapSample.json'
 
 export const CreateLegend = function({
     legendType = legendTypesEnum.headline,
@@ -77,10 +77,11 @@ function renderSide(background="checkered"){
                 checkSide
                 );
             }
-    } else{
-        // TODO: logic for sample background
+    } else if(background="sampled"){
         // Imagedata sample from basemap using console.log(ctx.getImageData(960/2, 960/3, 50, 170).data.toString())
-        let uIntImgData = new Uint8ClampedArray(baseMapSampleData.uInt8ClampedArrayData[3])
+        let uIntImgData = new Uint8ClampedArray(
+            mapSample.uInt8Data[Math.floor(Math.random() * mapSample.uInt8Data.length)]
+            );
         const imageData = ctx.createImageData(colorBoxWidth, colorBoxHeight)
         for (let i = 0; i < imageData.data.length; i++) {
                 imageData.data[i] = uIntImgData[i];
