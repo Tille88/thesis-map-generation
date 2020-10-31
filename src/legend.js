@@ -80,7 +80,7 @@ function renderSide(background="checkered"){
     } else{
         // TODO: logic for sample background
         // Imagedata sample from basemap using console.log(ctx.getImageData(960/2, 960/3, 50, 170).data.toString())
-        let uIntImgData = new Uint8ClampedArray(baseMapSampleData.uInt8ClampedArrayData)
+        let uIntImgData = new Uint8ClampedArray(baseMapSampleData.uInt8ClampedArrayData[3])
         const imageData = ctx.createImageData(colorBoxWidth, colorBoxHeight)
         for (let i = 0; i < imageData.data.length; i++) {
                 imageData.data[i] = uIntImgData[i];
