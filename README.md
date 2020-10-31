@@ -25,19 +25,18 @@ Exportable map examples for GIS thesis on opacity-mapping
 - [x] Clean up color representation outline from cfg
 - [x] Rescale data points between [0,1], [0,255] for opacity to make sure stronger impact
 - [ ] Legend object types generation (using object oriented programming), expose as API all the way to browser entry-point/main/browser...
-    1. [ ] Only headline version
+    1. [x] Only headline version
     2. [ ] ArcGIS version imitation
     3. [ ] Sampled context behind legend
     4. [ ] Annotated outline
     5. [ ] 3 (Sampled context) + 4 (Annotated outline)
      
-**SAT OCT 31st FINISHED MIN CHECKPOINT**
+**SUN NOV 1st FINISHED MIN CHECKPOINT**
 - [x] <strike>Able to toggle marker representation</strike> for web version really
 - [ ] Marker object generation (incl. range and value extraction)
     - [ ] location of marker storage - Data point as fraction x and y dimension
     - [ ] hard coded version (in canvas)
     - [x] <strike>overlay pulsing CSS version</strike> for web version really
-**SUN Nov 1st FINISHED MIN CHECKPOINT**
 - [ ] Generate test images, and use browser API to save as large image files
     - [ ] All color combinations
     - [ ] All legend alternatives per color
@@ -47,6 +46,7 @@ Exportable map examples for GIS thesis on opacity-mapping
     - https://github.com/puppeteer/puppeteer/ (get image src to disk)
     - https://attacomsian.com/blog/nodejs-base64-encode-decode
     - https://stackoverflow.com/questions/6926016/nodejs-saving-a-base64-encoded-image-to-disk
+**SAT NOV 7th FINISHED MIN CHECKPOINT**
 - [ ] Downsample or generate different sizes programmatically
     - https://www.npmjs.com/package/sharp
 - [ ] Export all layers separately for one to be shown in intro-page

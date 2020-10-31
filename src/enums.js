@@ -4,7 +4,7 @@ export const opColChoiceEnum = {
     b: 2
 };
 
-export const legendTypes = {
+export const legendTypesEnum = {
     headline: "headline",
     sideCheckered: "separate w/ checkered background (ArcGIS imitation)",
     sideSampledContext: "separate legend w/ sampled context",

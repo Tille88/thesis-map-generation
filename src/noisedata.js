@@ -62,9 +62,8 @@ function opacityCanvasComposite(){
         }
     }
     // Outline
-    ctx.rect(xMinPx, yMinPx, (xMaxPx-xMinPx)+1, (yMaxPx-yMinPx)+1);
     ctx.strokeStyle = getRGBOutlineCSSString();
-    ctx.stroke();
+    ctx.strokeRect(xMinPx, yMinPx, (xMaxPx-xMinPx)+1, (yMaxPx-yMinPx)+1);
     // Draw image data to the canvas
     // TODO make into promise for outside...
     createImageBitmap(imageData)
