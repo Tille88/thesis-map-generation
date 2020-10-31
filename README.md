@@ -26,12 +26,12 @@ Exportable map examples for GIS thesis on opacity-mapping
 - [x] Rescale data points between [0,1], [0,255] for opacity to make sure stronger impact
 - [ ] Legend object types generation (using object oriented programming), expose as API all the way to browser entry-point/main/browser...
     1. [x] Only headline version
-    2. [ ] ArcGIS version imitation
-    3. [ ] Sampled context behind legend
-    4. [ ] Annotated outline
+    2. [x] ArcGIS version imitation
+    3. [x] Sampled context behind legend
+    4. [ ] Annotated outline (including some refactoring)
     5. [ ] 3 (Sampled context) + 4 (Annotated outline)
-     
 **SUN NOV 1st FINISHED MIN CHECKPOINT**
+- [ ] Refactoring!!! Only one full day
 - [x] <strike>Able to toggle marker representation</strike> for web version really
 - [ ] Marker object generation (incl. range and value extraction)
     - [ ] location of marker storage - Data point as fraction x and y dimension
@@ -41,8 +41,6 @@ Exportable map examples for GIS thesis on opacity-mapping
     - [ ] All color combinations
     - [ ] All legend alternatives per color
     - [ ] Version with hard coded marker and without
-    - https://www.tutorialspoint.com/HTML5-Canvas-to-PNG-File
-    - https://stackoverflow.com/questions/923885/capture-html-canvas-as-gif-jpg-png-pdf
     - https://github.com/puppeteer/puppeteer/ (get image src to disk)
     - https://attacomsian.com/blog/nodejs-base64-encode-decode
     - https://stackoverflow.com/questions/6926016/nodejs-saving-a-base64-encoded-image-to-disk

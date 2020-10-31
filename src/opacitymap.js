@@ -22,7 +22,7 @@ export const CreateOpacityMap = function({} = {}){
             baseMap.renderProm
                 .then(() => noiseData.init.apply(noiseData))
                 .then(() => CreateLegend(
-                    {legendType: legendTypesEnum.sideCheckered}
+                    {legendType: legendTypesEnum.sideSampledContext}
                     ).init());
         },
         // Create easy-to-extract save mechs
