@@ -21,6 +21,16 @@ export function getCanvasDims(){
     };
 }
 
+export function getDataAreaPixelDims(normalizedDimensions){
+    const {width, height} = getCanvasDims();
+    return {
+        xMinPx: normalizedDimensions.xMin * width,
+        xMaxPx: normalizedDimensions.xMax * width,
+        yMinPx: normalizedDimensions.yMin * height,
+        yMaxPx: normalizedDimensions.yMax * height
+    };
+}
+
 export function distance(x1, y1, x2, y2){
     return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
 }

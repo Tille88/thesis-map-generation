@@ -32,17 +32,20 @@ function opacityCanvasComposite(){
     let {width, height} = getCanvasDims();    
     var imageData = ctx.createImageData(width,height);
     let alphaStorage = new Array(imageData.data.length);
-    const xMinPx = this.loc.xMin * width;
-    const xMaxPx = this.loc.xMax * width;
-    const yMinPx = this.loc.yMin * height;
-    const yMaxPx = this.loc.yMax * height;
-    const maxDist = distance(xMinPx, yMinPx, xMinPx+(xMaxPx-xMinPx)/2, yMinPx+(yMaxPx-yMinPx)/2);
+    const maxDist = distance(
+        this.loc.xMinPx, 
+        this.loc.yMinPx, 
+        this.loc.xMinPx+(this.loc.xMaxPx-this.loc.xMinPx)/2, 
+        this.loc.yMinPx+(this.loc.yMaxPx-this.loc.yMinPx)/2
+    );
     // Opacity calculation
     for (let i = 0; i < imageData.data.length; i += 4) {
         let x = (i/4) % width;
         let y = ((i/4) - x) / width;
-        if(x>xMinPx && x<xMaxPx && y>yMinPx && y<yMaxPx){
-            let normCentroidDist = distance(x, y, xMinPx+(xMaxPx-xMinPx)/2, yMinPx+(yMaxPx-yMinPx)/2) / maxDist;
+        if(withinDataArea.call(this, x, y)){
+            let normCentroidDist = distance(x, y, 
+                this.loc.xMinPx+(this.loc.xMaxPx-this.loc.xMinPx)/2, 
+                this.loc.yMinPx+(this.loc.yMaxPx-this.loc.yMinPx)/2) / maxDist;
             let noiseVal = p5.noise(0.005*x, 0.005*y)* (1-normCentroidDist);
             alphaStorage[Math.ceil(i/4)] = noiseVal;
         }
@@ -53,7 +56,7 @@ function opacityCanvasComposite(){
     for (let i = 0; i < imageData.data.length; i += 4) {
         let x = (i/4) % width;
         let y = ((i/4) - x) / width;
-        if(x>xMinPx && x<xMaxPx && y>yMinPx && y<yMaxPx){
+        if(withinDataArea.call(this, x, y)){
             imageData.data[i + cfg.opacityCol] = 255;
             let noiseVal = normAlphaFunc(alphaStorage[Math.ceil(i/4)]);
             imageData.data[i + 3] = Math.round(noiseVal * 255);
@@ -62,7 +65,9 @@ function opacityCanvasComposite(){
     }
     // Outline
     ctx.strokeStyle = getRGBOutlineCSSString();
-    ctx.strokeRect(xMinPx, yMinPx, (xMaxPx-xMinPx)+1, (yMaxPx-yMinPx)+1);
+    ctx.strokeRect(this.loc.xMinPx, this.loc.yMinPx, 
+        (this.loc.xMaxPx-this.loc.xMinPx)+1, 
+        (this.loc.yMaxPx-this.loc.yMinPx)+1);
     // Draw image data to the canvas
     // TODO make into promise for outside...
     createImageBitmap(imageData)
@@ -70,6 +75,12 @@ function opacityCanvasComposite(){
     return alphaStorage;
 }
 
+function withinDataArea(x, y){
+    return (x>this.loc.xMinPx) && 
+            (x<this.loc.xMaxPx) && 
+            (y>this.loc.yMinPx) && 
+            (y<this.loc.yMaxPx);
+}
 
 function getRGBOutlineCSSString(){
     switch (cfg.opacityCol) {

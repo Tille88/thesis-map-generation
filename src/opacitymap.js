@@ -3,6 +3,16 @@ import {CreateNoiseDataLayer} from './noisedata';
 import {CreateLegend} from './legend';
 import cfg from './cfg';
 import {legendTypesEnum} from './enums'
+import {getDataAreaPixelDims} from './utils'
+
+// Configs
+const dataDimensions = {
+    xMin: 0.1,
+    xMax: 0.7,
+    yMin: 0.2,
+    yMax: 0.7
+};
+
 
 export const CreateOpacityMap = function({} = {}){
     return {
@@ -11,19 +21,15 @@ export const CreateOpacityMap = function({} = {}){
             let baseMap = CreateBaseMap({mapSource: "cached"});
             baseMap.init();
             let noiseData = CreateNoiseDataLayer(
-                {loc: {
-                    xMin: 0.1,
-                    xMax: 0.7,
-                    yMin: 0.2,
-                    yMax: 0.7
-                    }} 
+                {loc: getDataAreaPixelDims(dataDimensions)} 
             );
             // baseMap.renderProm.then(noiseData.init);
             baseMap.renderProm
                 .then(() => noiseData.init.apply(noiseData))
                 .then(() => CreateLegend(
-                    {legendType: legendTypesEnum.headline}
-                    ).init());
+                    {
+                        legendType: legendTypesEnum.annotatedOutline
+                    }).init());
         },
         // Create easy-to-extract save mechs
         save: function(){

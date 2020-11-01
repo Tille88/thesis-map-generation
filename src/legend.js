@@ -20,6 +20,8 @@ export const CreateLegend = function({
                     renderSideLegend(legendTypesEnum.sideSampledContext);
                 } else if(legendType===legendTypesEnum.clusteredContextCols) {
                     renderSideLegend(legendTypesEnum.clusteredContextCols);
+                }  else if(legendType===legendTypesEnum.annotatedOutline) {
+                    renderAnnotatedOutline();
                 }
             });
         }
@@ -127,6 +129,10 @@ function renderSideLegend(background="checkered"){
     ctx.fillStyle = 'black';
     ctx.fillText("100", legendBoxX + colorBoxWidth + 15, legendBoxY + 2);
     ctx.fillText("0", legendBoxX + colorBoxWidth + 15, legendBoxY + colorBoxHeight + 2);
+}
+
+function renderAnnotatedOutline(){
+
 }
 
 function drawLegendOpacity(ctx, boxWidth, boxHeight, upperX, upperY){
