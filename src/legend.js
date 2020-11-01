@@ -16,11 +16,11 @@ export const CreateLegend = function({
                 if(legendType===legendTypesEnum.headline){
                     renderHeadline();
                 } else if(legendType===legendTypesEnum.sideCheckered) {
-                    renderSide("checkered");
+                    renderSide(legendTypesEnum.sideCheckered);
                 } else if(legendType===legendTypesEnum.sideSampledContext) {
-                    renderSide("sampled");
+                    renderSide(legendTypesEnum.sideSampledContext);
                 } else if(legendType===legendTypesEnum.clusteredContextCols) {
-                    renderSide("clustered");
+                    renderSide(legendTypesEnum.clusteredContextCols);
                 }
             });
         }
@@ -62,7 +62,7 @@ function renderSide(background="checkered"){
     let colorBoxWidth = 50;
     let colorBoxHeight = 170;
     // Background checkered, white = 255, 255, 255, Not midgrey
-    if(background==="checkered"){
+    if(background===legendTypesEnum.sideCheckered){
         let checkSide=10;
         let checkCols = ["white", "rgb(165,165,165)"]
         let cols = colorBoxWidth/checkSide;
@@ -78,7 +78,7 @@ function renderSide(background="checkered"){
                 checkSide
                 );
             }
-    } else if(background==="sampled"){
+    } else if(background===legendTypesEnum.sideSampledContext){
         // Imagedata sample from basemap using console.log(ctx.getImageData(960/2, 960/3, 50, 170).data.toString())
         let uIntImgData = new Uint8ClampedArray(
             mapSample.uInt8Data[Math.floor(Math.random() * mapSample.uInt8Data.length)]
@@ -88,8 +88,7 @@ function renderSide(background="checkered"){
                 imageData.data[i] = uIntImgData[i];
         }
         ctx.putImageData(imageData, legendBoxX, legendBoxY);
-    } else if(background==="clustered"){
-        console.log("Clustered");
+    } else if(background===legendTypesEnum.clusteredContextCols){
         let clusterCols = [
                         "#DFDCDC", "#D0CBC0", "#EAEDE6", 
                         "#F9F8F6", "#F4E0BA", "#A8B3A5", 
@@ -107,18 +106,7 @@ function renderSide(background="checkered"){
     }
 
     // Background opacity
-    var imageData = ctx.createImageData(colorBoxWidth,colorBoxHeight);
-    const alphaScale = scaleLinear()
-        .domain([colorBoxHeight, 0])
-        .range([0,1]);
-    for (let i = 0; i < imageData.data.length; i += 4) {
-        let x = (i/4) % colorBoxWidth;
-        let y = ((i/4) - x) / colorBoxWidth;
-        imageData.data[i + cfg.opacityCol] = 255;
-        imageData.data[i + 3] = Math.round(alphaScale(y) * 255);
-    }
-    createImageBitmap(imageData)
-    .then((imageBitmap) => ctx.drawImage(imageBitmap, legendBoxX, legendBoxY));
+    drawLegendOpacity(ctx, colorBoxWidth, colorBoxHeight, legendBoxX, legendBoxY);
 
     // Indicator triangles
     drawIndicatorTriangle(
@@ -141,6 +129,20 @@ function renderSide(background="checkered"){
     ctx.fillText("0", legendBoxX + colorBoxWidth + 15, legendBoxY + colorBoxHeight + 2);
 }
 
+function drawLegendOpacity(ctx, boxWidth, boxHeight, upperX, upperY){
+    var imageData = ctx.createImageData(boxWidth,boxHeight);
+    const alphaScale = scaleLinear()
+        .domain([boxHeight, 0])
+        .range([0,1]);
+    for (let i = 0; i < imageData.data.length; i += 4) {
+        let x = (i/4) % boxWidth;
+        let y = ((i/4) - x) / boxWidth;
+        imageData.data[i + cfg.opacityCol] = 255;
+        imageData.data[i + 3] = Math.round(alphaScale(y) * 255);
+    }
+    createImageBitmap(imageData)
+    .then((imageBitmap) => ctx.drawImage(imageBitmap, upperX, upperY));
+}
 
 function drawIndicatorTriangle(context, x, y, triangleWidth, triangleHeight, fillStyle){
     context.beginPath();
