@@ -19,6 +19,8 @@ export const CreateLegend = function({
                     renderSide("checkered");
                 } else if(legendType===legendTypesEnum.sideSampledContext) {
                     renderSide("sampled");
+                } else if(legendType===legendTypesEnum.clusteredContextCols) {
+                    renderSide("clustered");
                 }
             });
         }
@@ -60,7 +62,7 @@ function renderSide(background="checkered"){
     let colorBoxWidth = 50;
     let colorBoxHeight = 170;
     // Background checkered, white = 255, 255, 255, Not midgrey
-    if(background=="checkered"){
+    if(background==="checkered"){
         let checkSide=10;
         let checkCols = ["white", "rgb(165,165,165)"]
         let cols = colorBoxWidth/checkSide;
@@ -71,13 +73,12 @@ function renderSide(background="checkered"){
             ctx.fillStyle = checkCols[i%2];  
             let x = legendBoxX + (i % cols * checkSide);  
             ctx.fillRect(x, 
-                legendBoxY + (Math.floor(i/cols)*checkSide), 
-                // legendBoxY, 
+                legendBoxY + (Math.floor(i/cols)*checkSide),
                 checkSide, 
                 checkSide
                 );
             }
-    } else if(background="sampled"){
+    } else if(background==="sampled"){
         // Imagedata sample from basemap using console.log(ctx.getImageData(960/2, 960/3, 50, 170).data.toString())
         let uIntImgData = new Uint8ClampedArray(
             mapSample.uInt8Data[Math.floor(Math.random() * mapSample.uInt8Data.length)]
@@ -87,7 +88,24 @@ function renderSide(background="checkered"){
                 imageData.data[i] = uIntImgData[i];
         }
         ctx.putImageData(imageData, legendBoxX, legendBoxY);
+    } else if(background==="clustered"){
+        console.log("Clustered");
+        let clusterCols = [
+                        "#DFDCDC", "#D0CBC0", "#EAEDE6", 
+                        "#F9F8F6", "#F4E0BA", "#A8B3A5", 
+                        "#7D7B7B", "#AAD0DE", "#E4B292", 
+                        "#CAF1C2"];
+        clusterCols.forEach((fillCol, idx, arr) => {
+            ctx.fillStyle = fillCol;
+            ctx.fillRect(
+                legendBoxX + idx * colorBoxWidth/arr.length, 
+                legendBoxY, 
+                colorBoxWidth/arr.length, 
+                colorBoxHeight
+                );
+        });
     }
+
     // Background opacity
     var imageData = ctx.createImageData(colorBoxWidth,colorBoxHeight);
     const alphaScale = scaleLinear()

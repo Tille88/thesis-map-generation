@@ -8,6 +8,6 @@ export const legendTypesEnum = {
     headline: "headline",
     sideCheckered: "separate w/ checkered background (ArcGIS imitation)",
     sideSampledContext: "separate legend w/ sampled context",
-    annotatedOutline: "legend next to data area",
-    sampledAndOutlined: "sideSampledContext and annotatedOutline combined"
+    clusteredContextCols: "Clustered basemap colours",
+    annotatedOutline: "legend next to data area"
 };

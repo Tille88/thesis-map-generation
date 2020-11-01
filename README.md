@@ -29,9 +29,10 @@ Exportable map examples for GIS thesis on opacity-mapping
     2. [x] ArcGIS version imitation
     3. [x] Sampled context behind legend
         - [x] Have sampled background selected randomly from array
-    4. [ ] Annotated outline 
+    4. [x] Clustered image colours as background context (after seeing results of 3 above)
+    5. [ ] Annotated outline 
         (including some refactoring)
-    5. [ ] 3 (Sampled context) + 4 (Annotated outline) - simply call two functions
+    5. <strike>[ ] 3 (Sampled context) + 4 (Annotated outline) - simply call two functions</strike> - Not strong enough reasons for this
 
 **SUN NOV 1st FINISHED MIN CHECKPOINT**
 
