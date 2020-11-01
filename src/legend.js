@@ -7,10 +7,18 @@ import mapSample from '../assets/baseMapSample/basemapSample.json'
 
 export const CreateLegend = function({
     legendType = legendTypesEnum.headline,
+    dataLoc = {
+        xMinPx: null,
+        xMaxPx: null,
+        yMinPx: null,
+        yMaxPx: null
+    }
 } = {}){
     var f = new FontFace("Cairo", "url("+Cairo+")");
     return {
+        dataLoc,
         init: function(){
+            let that = this;
             f.load().then(function() {
                 if(legendType===legendTypesEnum.headline){
                     renderHeadline();
@@ -21,7 +29,7 @@ export const CreateLegend = function({
                 } else if(legendType===legendTypesEnum.clusteredContextCols) {
                     renderSideLegend(legendTypesEnum.clusteredContextCols);
                 }  else if(legendType===legendTypesEnum.annotatedOutline) {
-                    renderAnnotatedOutline();
+                    renderAnnotatedOutline.apply(that);
                 }
             });
         }
@@ -132,10 +140,34 @@ function renderSideLegend(background="checkered"){
 }
 
 function renderAnnotatedOutline(){
-
+    // Opacity with stroke outline
+    let outlineWidth = 40;
+    let outlineHeight = 170;
+    let upperX = this.dataLoc.xMinPx-1-outlineWidth;
+    let upperY = this.dataLoc.yMinPx-1;
+    const ctx = getCanvasContext();
+    drawLegendOpacity(
+        ctx, outlineWidth, outlineHeight,
+        upperX, upperY    
+    );
+    ctx.strokeStyle = 'black';
+    ctx.strokeRect(upperX, upperY, outlineWidth, outlineHeight);
+    // Text part
+    ctx.fillStyle = 'white';
+    ctx.fillRect(upperX-50, upperY-10, 49, 20);
+    ctx.fillRect(upperX-50, upperY+outlineHeight-10, 49, 20);
+    drawIndicatorTriangle(ctx, upperX - 5, upperY, 7,10,'rgb(70,70,70)', "right");
+    drawIndicatorTriangle(ctx, upperX - 5, upperY + outlineHeight, 7,10,'rgb(70,70,70)', "right");
+    ctx.font = '20px Cairo';
+    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'right';
+    ctx.fillStyle = 'black';
+    ctx.fillText("100", upperX-14, upperY+2);
+    ctx.fillText("0", upperX-14, upperY + outlineHeight+2);
 }
 
 function drawLegendOpacity(ctx, boxWidth, boxHeight, upperX, upperY){
+    
     var imageData = ctx.createImageData(boxWidth,boxHeight);
     const alphaScale = scaleLinear()
         .domain([boxHeight, 0])
@@ -150,11 +182,15 @@ function drawLegendOpacity(ctx, boxWidth, boxHeight, upperX, upperY){
     .then((imageBitmap) => ctx.drawImage(imageBitmap, upperX, upperY));
 }
 
-function drawIndicatorTriangle(context, x, y, triangleWidth, triangleHeight, fillStyle){
+function drawIndicatorTriangle(context, x, y, triangleWidth, triangleHeight, fillStyle, direction = "left"){
+    let baseX = x + triangleWidth;
+    if(direction=="right"){
+        baseX = x - triangleWidth;
+    }
     context.beginPath();
     context.moveTo(x, y);
-    context.lineTo(x + triangleWidth, y + triangleHeight/2);
-    context.lineTo(x + triangleWidth, y - triangleHeight/2);
+    context.lineTo(baseX, y + triangleHeight/2);
+    context.lineTo(baseX, y - triangleHeight/2);
     context.closePath();
     context.fillStyle = fillStyle;
     context.fill();

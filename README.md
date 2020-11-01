@@ -24,15 +24,15 @@ Exportable map examples for GIS thesis on opacity-mapping
 - [x] Ensure drawing order (background then opacity) - silly mistake, executed function early, not wrapped in function TO BE EXECUTED
 - [x] Clean up color representation outline from cfg
 - [x] Rescale data points between [0,1], [0,255] for opacity to make sure stronger impact
-- [ ] Legend object types generation (using object oriented programming), expose as API all the way to browser entry-point/main/browser...
+- [x] Legend object types generation (using object oriented programming), expose as API all the way to browser entry-point/main/browser...
     1. [x] Only headline version
     2. [x] ArcGIS version imitation
     3. [x] Sampled context behind legend
         - [x] Have sampled background selected randomly from array
     4. [x] Clustered image colours as background context (after seeing results of 3 above)
         - [x] Why font read-in not working? -> CSS fix
-    5. [ ] Annotated outline
-    5. <strike>[ ] 3 (Sampled context) + 4 (Annotated outline) - simply call two functions</strike> - Not strong enough reasons for this
+    5. [x] Annotated outline
+    <strike>5. [ ] 3 (Sampled context) + 4 (Annotated outline) - simply call two functions</strike> - Not strong enough reasons for this
 
 
 **SUN NOV 1st FINISHED MIN CHECKPOINT**

@@ -26,10 +26,13 @@ export const CreateOpacityMap = function({} = {}){
             // baseMap.renderProm.then(noiseData.init);
             baseMap.renderProm
                 .then(() => noiseData.init.apply(noiseData))
-                .then(() => CreateLegend(
-                    {
+                .then(() => {
+                    let legendRef= CreateLegend({
+                        dataLoc: getDataAreaPixelDims(dataDimensions),
                         legendType: legendTypesEnum.annotatedOutline
-                    }).init());
+                    });
+                    legendRef.init.apply(legendRef);
+                });
         },
         // Create easy-to-extract save mechs
         save: function(){
