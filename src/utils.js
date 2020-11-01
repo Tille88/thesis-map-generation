@@ -13,6 +13,14 @@ export function getCanvasContext(){
     return canvas.getContext('2d');
 }
 
+export function getCanvasDims(){
+    const ctx = getCanvasContext();
+    return {
+        width: ctx.canvas.width,
+        height: ctx.canvas.height
+    };
+}
+
 export function distance(x1, y1, x2, y2){
     return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
 }

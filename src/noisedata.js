@@ -1,7 +1,7 @@
 import p5 from '../lib/noise';
 import cfg from './cfg';
 import {opColChoiceEnum} from './enums';
-import {getCanvasContext, distance} from './utils';
+import {getCanvasContext, getCanvasDims, distance} from './utils';
 import {extent} from 'd3-array';
 import {scaleLinear} from 'd3-scale';
 
@@ -29,15 +29,14 @@ export const CreateNoiseDataLayer = function({
 // TODO: refactor
 function opacityCanvasComposite(){
     let ctx = getCanvasContext();
-    let width = ctx.canvas.width;
-    let height = ctx.canvas.height;
+    let {width, height} = getCanvasDims();    
     var imageData = ctx.createImageData(width,height);
     let alphaStorage = new Array(imageData.data.length);
     const xMinPx = this.loc.xMin * width;
     const xMaxPx = this.loc.xMax * width;
     const yMinPx = this.loc.yMin * height;
     const yMaxPx = this.loc.yMax * height;
-    const maxDist = distance(xMinPx, yMinPx, xMinPx+(xMaxPx-xMinPx)/2, yMinPx+(yMaxPx-yMinPx)/2)
+    const maxDist = distance(xMinPx, yMinPx, xMinPx+(xMaxPx-xMinPx)/2, yMinPx+(yMaxPx-yMinPx)/2);
     // Opacity calculation
     for (let i = 0; i < imageData.data.length; i += 4) {
         let x = (i/4) % width;

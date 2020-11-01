@@ -1,5 +1,5 @@
 import {legendTypesEnum} from './enums'
-import {getCanvasContext} from './utils';
+import {getCanvasContext, getCanvasDims} from './utils';
 import cfg from './cfg';
 import {scaleLinear} from 'd3-scale';
 import Cairo from '../assets/fonts/Cairo-Regular.ttf'
@@ -8,7 +8,6 @@ import mapSample from '../assets/baseMapSample/basemapSample.json'
 export const CreateLegend = function({
     legendType = legendTypesEnum.headline,
 } = {}){
-    // var f = new FontFace("Cairo", "url("+Cairo../assets/fonts/Cairo-Regular.ttf)");
     var f = new FontFace("Cairo", "url("+Cairo+")");
     return {
         init: function(){
@@ -16,11 +15,11 @@ export const CreateLegend = function({
                 if(legendType===legendTypesEnum.headline){
                     renderHeadline();
                 } else if(legendType===legendTypesEnum.sideCheckered) {
-                    renderSide(legendTypesEnum.sideCheckered);
+                    renderSideLegend(legendTypesEnum.sideCheckered);
                 } else if(legendType===legendTypesEnum.sideSampledContext) {
-                    renderSide(legendTypesEnum.sideSampledContext);
+                    renderSideLegend(legendTypesEnum.sideSampledContext);
                 } else if(legendType===legendTypesEnum.clusteredContextCols) {
-                    renderSide(legendTypesEnum.clusteredContextCols);
+                    renderSideLegend(legendTypesEnum.clusteredContextCols);
                 }
             });
         }
@@ -30,32 +29,33 @@ export const CreateLegend = function({
 
 function renderHeadline(){
     const ctx = getCanvasContext();
-    let width = ctx.canvas.width;
-    let height = ctx.canvas.height;
+    let {width} = getCanvasDims();
     ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, width, 80);
+    let backgroundHeight = 80;
+    ctx.fillRect(0, 0, width, backgroundHeight);
     ctx.font = '50px Cairo';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillStyle = 'black';
-    ctx.fillText(cfg.legendText, width/2, 80/2);
+    ctx.fillText(cfg.legendText, width/2, backgroundHeight/2);
 }
 
 // TODO refactor for next version
-function renderSide(background="checkered"){
+function renderSideLegend(background="checkered"){
     const ctx = getCanvasContext();
-    let width = ctx.canvas.width;
-    let height = ctx.canvas.height;
+    let {width, height} = getCanvasDims();
     // Background
     ctx.fillStyle = 'white';
     let legendWidth = 230
     let legendHeight = 250
     ctx.fillRect(width-legendWidth, height-legendHeight, legendWidth, legendHeight);
     // Headline text
+    let padLeft = 6;
+    let padTop = 15;
     ctx.font = '25px Cairo';
     ctx.textBaseline = 'top';
     ctx.fillStyle = 'black';
-    ctx.fillText(cfg.legendText, width-legendWidth+6, height-legendHeight+15);
+    ctx.fillText(cfg.legendText, width-legendWidth+padLeft, height-legendHeight+padTop);
     // Legendbox
     let legendBoxX = width-legendWidth+20;
     let legendBoxY = height-legendHeight+60;
