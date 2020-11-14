@@ -164,6 +164,14 @@ function renderAnnotatedOutline(){
     ctx.fillStyle = 'black';
     ctx.fillText("100", upperX-14, upperY+2);
     ctx.fillText("0", upperX-14, upperY + outlineHeight+2);
+
+    // Legend data range
+    ctx.fillStyle = 'white';
+    ctx.fillRect(upperX, upperY-32, 180, 30);
+    ctx.fillStyle = 'black';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillText(cfg.legendText, upperX+2, upperY-25);
 }
 
 function drawLegendOpacity(ctx, boxWidth, boxHeight, upperX, upperY){
