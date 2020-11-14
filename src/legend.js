@@ -1,4 +1,4 @@
-import {legendTypesEnum} from './enums'
+import {legendTypesEnum, opColChoiceEnum} from './enums'
 import {getCanvasContext, getCanvasDims} from './utils';
 import cfg from './cfg';
 import {scaleLinear} from 'd3-scale';
@@ -12,22 +12,24 @@ export const CreateLegend = function({
         xMaxPx: null,
         yMinPx: null,
         yMaxPx: null
-    }
+    },
+    opacityCol = opColChoiceEnum.r
 } = {}){
     var f = new FontFace("Cairo", "url("+Cairo+")");
     return {
         dataLoc,
+        opacityCol,
         render: function(){
             let that = this;
             f.load().then(function() {
                 if(legendType===legendTypesEnum.headline){
                     renderHeadline();
                 } else if(legendType===legendTypesEnum.sideCheckered) {
-                    renderSideLegend(legendTypesEnum.sideCheckered);
+                    renderSideLegend.call(that, legendTypesEnum.sideCheckered);
                 } else if(legendType===legendTypesEnum.sideSampledContext) {
-                    renderSideLegend(legendTypesEnum.sideSampledContext);
+                    renderSideLegend.call(that, legendTypesEnum.sideSampledContext);
                 } else if(legendType===legendTypesEnum.clusteredContextCols) {
-                    renderSideLegend(legendTypesEnum.clusteredContextCols);
+                    renderSideLegend.call(that, legendTypesEnum.clusteredContextCols);
                 }  else if(legendType===legendTypesEnum.annotatedOutline) {
                     renderAnnotatedOutline.apply(that);
                 }
@@ -116,7 +118,7 @@ function renderSideLegend(background="checkered"){
     }
 
     // Background opacity
-    drawLegendOpacity(ctx, colorBoxWidth, colorBoxHeight, legendBoxX, legendBoxY);
+    drawLegendOpacity.call(this, ctx, colorBoxWidth, colorBoxHeight, legendBoxX, legendBoxY);
 
     // Indicator triangles
     drawIndicatorTriangle(
@@ -146,7 +148,7 @@ function renderAnnotatedOutline(){
     let upperX = this.dataLoc.xMinPx-1-outlineWidth;
     let upperY = this.dataLoc.yMinPx-1;
     const ctx = getCanvasContext();
-    drawLegendOpacity(
+    drawLegendOpacity.call(this,
         ctx, outlineWidth, outlineHeight,
         upperX, upperY    
     );
@@ -183,7 +185,7 @@ function drawLegendOpacity(ctx, boxWidth, boxHeight, upperX, upperY){
     for (let i = 0; i < imageData.data.length; i += 4) {
         let x = (i/4) % boxWidth;
         let y = ((i/4) - x) / boxWidth;
-        imageData.data[i + cfg.opacityCol] = 255;
+        imageData.data[i + this.opacityCol] = 255;
         imageData.data[i + 3] = Math.round(alphaScale(y) * 255);
     }
     createImageBitmap(imageData)

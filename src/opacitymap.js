@@ -2,20 +2,28 @@ import {CreateBaseMap} from './basemap';
 import {CreateNoiseDataLayer} from './noisedata';
 import {CreateLegend} from './legend';
 import {CreateMarker} from './marker';
+import {opColChoiceEnum, legendTypesEnum} from './enums';
 import cfg from './cfg';
-import {legendTypesEnum} from './enums'
 import {getDataAreaPixelDims} from './utils'
 
-// Configs
-const dataDimensions = {
-    xMin: 0.1,
-    xMax: 0.7,
-    yMin: 0.2,
-    yMax: 0.7
-};
 
-
-export const CreateOpacityMap = function({} = {}){
+export const CreateOpacityMap = function({
+    dataDimensions = {
+        xMin: 0.1,
+        xMax: 0.7,
+        yMin: 0.2,
+        yMax: 0.7
+    },
+    fallOff = true,
+    mergeCanvas = true,
+    // legendType = legendTypesEnum.headline,
+    // legendType = legendTypesEnum.sideCheckered,
+    // legendType = legendTypesEnum.sideSampledContext,
+    // legendType = legendTypesEnum.clusteredContextCols,
+    legendType = legendTypesEnum.annotatedOutline,
+    opacityCol = opColChoiceEnum.r,
+    opacitySeed = 123
+} = {}){
     let noiseData = null;
     return {
         // Initialization function
@@ -25,7 +33,9 @@ export const CreateOpacityMap = function({} = {}){
                     noiseData = CreateNoiseDataLayer(
                             {
                                 loc: getDataAreaPixelDims(dataDimensions),
-                                fallOff: false
+                                fallOff,
+                                opacitySeed,
+                                opacityCol
                             }
                     );
                     noiseData.render();
@@ -33,17 +43,14 @@ export const CreateOpacityMap = function({} = {}){
                 .then(() => {
                     CreateLegend({
                         dataLoc: getDataAreaPixelDims(dataDimensions),
-                        // legendType: legendTypesEnum.headline
-                        // legendType: legendTypesEnum.sideCheckered
-                        // legendType: legendTypesEnum.sideSampledContext
-                        // legendType: legendTypesEnum.clusteredContextCols
-                        legendType: legendTypesEnum.annotatedOutline
+                        legendType,
+                        opacityCol
                     }).render();
                 })
                 .then(() => {
                     let marker = CreateMarker({
                         range: getDataAreaPixelDims(dataDimensions),
-                        mergeCanvas: true
+                        mergeCanvas
                     });
                     marker.render();
                     let dataVal = 100 * noiseData.getOpacityForCoord(marker.xPx, marker.yPx);

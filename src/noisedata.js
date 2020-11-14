@@ -12,14 +12,17 @@ export const CreateNoiseDataLayer = function({
             yMin: 0.2,
             yMax: 0.8
             },
-        fallOff = true
+        fallOff = true,
+        opacitySeed = 123,
+        opacityCol = opColChoiceEnum.r
     } = {}){
     // PRIV
     let alphaStorage = null;
-    p5.noiseSeed(cfg.opacitySeed)
+    p5.noiseSeed(opacitySeed)
     return {
         loc,
         fallOff,
+        opacityCol,
         render: function(){
             alphaStorage = opacityCanvasComposite.apply(this);
         },
@@ -67,14 +70,14 @@ function opacityCanvasComposite(){
         let x = (i/4) % width;
         let y = ((i/4) - x) / width;
         if(withinDataArea.call(this, x, y)){
-            imageData.data[i + cfg.opacityCol] = 255;
+            imageData.data[i + this.opacityCol] = 255;
             let noiseVal = normAlphaFunc(alphaStorage[Math.ceil(i/4)]);
             imageData.data[i + 3] = Math.round(noiseVal * 255);
             alphaStorage[Math.ceil(i/4)] = noiseVal;
         }
     }
     // Outline
-    ctx.strokeStyle = getRGBOutlineCSSString();
+    ctx.strokeStyle = getRGBOutlineCSSString.call(this);
     ctx.strokeRect(this.loc.xMinPx, this.loc.yMinPx, 
         (this.loc.xMaxPx-this.loc.xMinPx)+1, 
         (this.loc.yMaxPx-this.loc.yMinPx)+1);
@@ -93,7 +96,7 @@ function withinDataArea(x, y){
 }
 
 function getRGBOutlineCSSString(){
-    switch (cfg.opacityCol) {
+    switch (this.opacityCol) {
         case opColChoiceEnum.r:
             return 'rgb(255,0,0,255)';
         case opColChoiceEnum.g:
