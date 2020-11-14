@@ -17,7 +17,7 @@ export const CreateLegend = function({
     var f = new FontFace("Cairo", "url("+Cairo+")");
     return {
         dataLoc,
-        init: function(){
+        render: function(){
             let that = this;
             f.load().then(function() {
                 if(legendType===legendTypesEnum.headline){

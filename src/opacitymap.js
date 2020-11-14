@@ -1,6 +1,7 @@
 import {CreateBaseMap} from './basemap';
 import {CreateNoiseDataLayer} from './noisedata';
 import {CreateLegend} from './legend';
+import {CreateMarker} from './marker';
 import cfg from './cfg';
 import {legendTypesEnum} from './enums'
 import {getDataAreaPixelDims} from './utils'
@@ -15,23 +16,37 @@ const dataDimensions = {
 
 
 export const CreateOpacityMap = function({} = {}){
+    let noiseData = null;
     return {
         // Initialization function
         init: function(){
-            let baseMap = CreateBaseMap({mapSource: "cached"});
-            baseMap.init();
-            let noiseData = CreateNoiseDataLayer(
-                {loc: getDataAreaPixelDims(dataDimensions)} 
-            );
-            // baseMap.renderProm.then(noiseData.init);
-            baseMap.renderProm
-                .then(() => noiseData.init.apply(noiseData))
+            CreateBaseMap({mapSource: "cached"}).render()
                 .then(() => {
-                    let legendRef= CreateLegend({
+                    noiseData = CreateNoiseDataLayer(
+                            {
+                                loc: getDataAreaPixelDims(dataDimensions),
+                                fallOff: false
+                            }
+                    );
+                    noiseData.render();
+                })
+                .then(() => {
+                    CreateLegend({
                         dataLoc: getDataAreaPixelDims(dataDimensions),
+                        // legendType: legendTypesEnum.headline
+                        // legendType: legendTypesEnum.sideCheckered
+                        // legendType: legendTypesEnum.sideSampledContext
+                        // legendType: legendTypesEnum.clusteredContextCols
                         legendType: legendTypesEnum.annotatedOutline
+                    }).render();
+                })
+                .then(() => {
+                    let marker = CreateMarker({
+                        range: getDataAreaPixelDims(dataDimensions)
                     });
-                    legendRef.init.apply(legendRef);
+                    marker.render();
+                    let dataVal = 100 * noiseData.getOpacityForCoord(marker.xPx, marker.yPx);
+                    console.log(marker, dataVal);
                 });
         },
         // Create easy-to-extract save mechs

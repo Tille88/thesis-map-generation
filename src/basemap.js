@@ -14,12 +14,11 @@ export const CreateBaseMap = function({
     mapSource = 'OSM',
 } = {}){
     return {
-        renderProm: null,
-        init: function(){
+        render: function(){
             if(mapSource==='OSM'){
-                this.renderProm = renderOSM();
+                return renderOSM();
             } else {
-                this.renderProm = renderCached();
+                return renderCached();
             }
         }
     }

@@ -6,21 +6,27 @@ import {extent} from 'd3-array';
 import {scaleLinear} from 'd3-scale';
 
 export const CreateNoiseDataLayer = function({
-    loc = {
-        xMin: 0.2,
-        xMax: 0.8,
-        yMin: 0.2,
-        yMax: 0.8
-        } 
+        loc = {
+            xMin: 0.2,
+            xMax: 0.8,
+            yMin: 0.2,
+            yMax: 0.8
+            },
+        fallOff = true
     } = {}){
     // PRIV
     let alphaStorage = null;
     p5.noiseSeed(cfg.opacitySeed)
     return {
-        loc: loc,
-
-        init: function(){
+        loc,
+        fallOff,
+        render: function(){
             alphaStorage = opacityCanvasComposite.apply(this);
+        },
+        getOpacityForCoord: function(x, y) {
+            let {width} = getCanvasDims();
+            var opIdx = y * (width) + x;
+            return alphaStorage[opIdx];
         }
     }
 }
@@ -43,10 +49,14 @@ function opacityCanvasComposite(){
         let x = (i/4) % width;
         let y = ((i/4) - x) / width;
         if(withinDataArea.call(this, x, y)){
-            let normCentroidDist = distance(x, y, 
-                this.loc.xMinPx+(this.loc.xMaxPx-this.loc.xMinPx)/2, 
-                this.loc.yMinPx+(this.loc.yMaxPx-this.loc.yMinPx)/2) / maxDist;
-            let noiseVal = p5.noise(0.005*x, 0.005*y)* (1-normCentroidDist);
+            // let noiseVal = p5.noise(0.005*x, 0.005*y)* (1-normCentroidDist);
+            let noiseVal = p5.noise(0.005*x, 0.005*y);
+            if(this.fallOff){
+                let normCentroidDist = distance(x, y, 
+                    this.loc.xMinPx+(this.loc.xMaxPx-this.loc.xMinPx)/2, 
+                    this.loc.yMinPx+(this.loc.yMaxPx-this.loc.yMinPx)/2) / maxDist;
+                noiseVal *= (1-normCentroidDist);
+            }
             alphaStorage[Math.ceil(i/4)] = noiseVal;
         }
     }
