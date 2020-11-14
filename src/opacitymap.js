@@ -42,7 +42,8 @@ export const CreateOpacityMap = function({} = {}){
                 })
                 .then(() => {
                     let marker = CreateMarker({
-                        range: getDataAreaPixelDims(dataDimensions)
+                        range: getDataAreaPixelDims(dataDimensions),
+                        mergeCanvas: true
                     });
                     marker.render();
                     let dataVal = 100 * noiseData.getOpacityForCoord(marker.xPx, marker.yPx);

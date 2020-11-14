@@ -9,6 +9,7 @@
     "watch": "parcel watch --public-url . index.html"
   },
   "dependencies": {
+    "d3": "^6.2.0",
     "d3-array": "^2.8.0",
     "d3-scale": "^3.2.3",
     "ol": "^5.1.2"
