@@ -6,8 +6,7 @@ import {opColChoiceEnum, legendTypesEnum} from './src/enums';
 // Loop over all settings and extract through Node
 // Make sure able to keep marker and similar between renderings
 // Export all metainfo as well
-let test = [
-    {
+let test = {
         dataDimensions: {
             xMin: 0.1,
             xMax: 0.7,
@@ -20,31 +19,16 @@ let test = [
         // legendType: legendTypesEnum.clusteredContextCols,
         opacityCol: opColChoiceEnum.r,
         opacitySeed: 123
-    },
-    {
-        dataDimensions: {
-            xMin: 0.2,
-            xMax: 0.8,
-            yMin: 0.3,
-            yMax: 0.8
-        },
-        fallOff: false,
-        mergeCanvas: false,
-        legendType: legendTypesEnum.sideSampledContext,
-        opacityCol: opColChoiceEnum.g,
-        opacitySeed: 421
-    },
-];
+};
 
 
 
-let map = CreateOpacityMap(test[0]);
+let map = CreateOpacityMap(test);
 map.init();
 
 setTimeout(() => {
     let image = map.save();
-    console.log(image.src);
     const event = new CustomEvent('image-data', { detail: image.src });
     document.dispatchEvent(event);
-}, 5000);
+}, 2000);
 

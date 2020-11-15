@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const fs = require("fs");
 
 (async () => {
   const browser = await puppeteer.launch({headless: false});
@@ -10,7 +11,12 @@ const puppeteer = require('puppeteer');
 
 //   // Define a window.onCustomEvent function on the page.
     await page.exposeFunction('onCustomEvent', (e) => {
-        console.log(`${e.type} fired`, e.detail || '');
+        // console.log(e.detail.substring(0, 100));
+        var base64Data = e.detail.replace(/^data:image\/png;base64,/, "");
+        // console.log(base64Data.substring(0, 100));
+        fs.writeFile(__dirname + "/out.png", base64Data, 'base64', function(err) {
+            console.log(err);
+        });
       });
     
     //   /**
@@ -22,7 +28,6 @@ const puppeteer = require('puppeteer');
         return page.evaluateOnNewDocument((type) => {
             document.addEventListener(type, (e) => {
                 window.onCustomEvent({ type, detail: e.detail });
-                console.log("LOG: ", e.detail);
             });
         }, type);
     }
