@@ -47,7 +47,7 @@ function renderOSM(){
 
 
 function renderCached(){
-    createCanvasContext();
+    // createCanvasContext();
     // var ctx = getCanvasContext()
     // return loadImage(mapData.src).then(img => ctx.drawImage(img, 0, 0));
     return loadImage(mapData.src);

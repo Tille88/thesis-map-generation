@@ -4,7 +4,7 @@ import {CreateLegend} from './legend';
 import {CreateMarker} from './marker';
 import {opColChoiceEnum, legendTypesEnum} from './enums';
 import cfg from './cfg';
-import {getDataAreaPixelDims} from './utils'
+import {getDataAreaPixelDims, createCanvasContext} from './utils'
 
 
 export const CreateOpacityMap = function({
@@ -28,6 +28,7 @@ export const CreateOpacityMap = function({
     return {
         // Initialization function
         init: function(){
+            createCanvasContext();
             CreateBaseMap({mapSource: "cached"}).render()
                 .then(() => {
                     noiseData = CreateNoiseDataLayer(

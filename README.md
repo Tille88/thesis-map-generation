@@ -52,7 +52,7 @@ Exportable map examples for GIS thesis on opacity-mapping
 **SUN NOV 15th FINISHED CHECKPOINT**
 - [ ] Downsample or generate different sizes programmatically
     - https://www.npmjs.com/package/sharp
-- [ ] Export all layers separately for one to be shown in intro-page
+- [x] Export all layers separately for one to be shown in intro-page
 
 ## Generate Examples Instructions
 TODO, likely Node-based

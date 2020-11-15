@@ -15,8 +15,9 @@ let test = [
             yMax: 0.7
         },
         fallOff: true,
-        mergeCanvas: true,
+        mergeCanvas: false,
         legendType: legendTypesEnum.annotatedOutline,
+        // legendType: legendTypesEnum.clusteredContextCols,
         opacityCol: opColChoiceEnum.r,
         opacitySeed: 123
     },
@@ -40,10 +41,10 @@ let test = [
 let map = CreateOpacityMap(test[0]);
 map.init();
 
+setTimeout(() => {
+    let image = map.save();
+    console.log(image.src);
+    const event = new CustomEvent('image-data', { detail: image.src });
+    document.dispatchEvent(event);
+}, 5000);
 
-
-setTimeout(()=> {
-    map = CreateOpacityMap(test[1]); 
-    map.init()
-}, 2000);
-// setTimeout(map.save, 5000);
