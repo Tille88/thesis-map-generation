@@ -66,6 +66,7 @@ function renderSideLegend(background="checkered"){
     let padTop = 15;
     ctx.font = '25px Cairo';
     ctx.textBaseline = 'top';
+    ctx.textAlign = 'left';
     ctx.fillStyle = 'black';
     ctx.fillText(cfg.legendText, width-legendWidth+padLeft, height-legendHeight+padTop);
     // Legendbox
@@ -136,6 +137,7 @@ function renderSideLegend(background="checkered"){
     // Text
     ctx.font = '20px Cairo';
     ctx.textBaseline = 'middle';
+    ctx.textAlign = 'left';
     ctx.fillStyle = 'black';
     ctx.fillText("100", legendBoxX + colorBoxWidth + 15, legendBoxY + 2);
     ctx.fillText("0", legendBoxX + colorBoxWidth + 15, legendBoxY + colorBoxHeight + 2);
