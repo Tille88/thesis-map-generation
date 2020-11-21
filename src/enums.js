@@ -5,9 +5,15 @@ export const opColChoiceEnum = {
 };
 
 export const legendTypesEnum = {
-    headline: "headline",
-    sideCheckered: "separate w/ checkered background (ArcGIS imitation)",
-    sideSampledContext: "separate legend w/ sampled context",
-    clusteredContextCols: "Clustered basemap colours",
-    annotatedOutline: "legend next to data area"
+    headline: "headline-legend",
+    sideCheckered: "checkered-legend",
+    sideSampledContext: "sampled-legend",
+    clusteredContextCols: "clustered-legend",
+    annotatedOutline: "annotated-legend"
+};
+
+export const mergeAlternatives = {
+    merge: "merge",
+    svg: "svg",
+    noRender: "no-render"
 };

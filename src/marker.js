@@ -1,4 +1,5 @@
-import {getCanvasContext, getCanvasDims} from './utils';
+import {getCanvasContext, getCanvasDims, randomInt} from './utils';
+import {mergeAlternatives} from './enums';
 import cfg from './cfg';
 import * as d3 from "d3";
 
@@ -18,15 +19,19 @@ export const CreateMarker = function({
         relY: null,
         svgMarkerElement: null,
         render: function(){
-            let xPx = this.xPx = randomNumber(range.xMinPx, range.xMaxPx);
-            let yPx = this.yPx = randomNumber(range.yMinPx, range.yMaxPx);
+            let xPx = this.xPx = randomInt(range.xMinPx, range.xMaxPx);
+            let yPx = this.yPx = randomInt(range.yMinPx, range.yMaxPx);
             let {width, height} = getCanvasDims();
             this.relX = xPx/width;
             this.relY = yPx/height;
             // canvasMarker(xPx, yPx);
-            svgMarker.call(this, xPx,yPx);
-            if(mergeCanvas){
-                combineSvgCanvas.call(this);
+            if(mergeCanvas == mergeAlternatives.svg){
+                    svgMarker.call(this, xPx,yPx);
+            } else if(mergeCanvas == mergeAlternatives.merge){
+                        svgMarker.call(this, xPx,yPx);
+                        combineSvgCanvas.call(this);
+            } else if(mergeCanvas == mergeAlternatives.noRender){
+                
             }
         }
     }
@@ -89,9 +94,4 @@ function canvasMarker(xPx, yPx){
     ctx.arc(xPx, yPx, radius, 0, 2 * Math.PI, false);
     ctx.fillStyle = 'green';
     ctx.fill();
-}
-
-// min and max inclusive
-function randomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min+1)+min);
 }

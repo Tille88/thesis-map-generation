@@ -34,3 +34,14 @@ export function getDataAreaPixelDims(normalizedDimensions){
 export function distance(x1, y1, x2, y2){
     return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
 }
+
+// min and max inclusive
+export function randomInt(min, max, digits = 0) {
+    return Math.floor(Math.random() * (max - min+1)+min);
+}
+
+export function randomFloat(min, max, decimalPlaces = 1) {
+    var rand = Math.random() < 0.5 ? ((1-Math.random()) * (max-min) + min) : (Math.random() * (max-min) + min);  // could be min or max or anything in between
+    var power = Math.pow(10, decimalPlaces);
+    return Math.floor(rand*power) / power;
+}
