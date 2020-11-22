@@ -50,9 +50,9 @@ Exportable map examples for GIS thesis on opacity-mapping
     - https://attacomsian.com/blog/nodejs-base64-encode-decode
     - https://stackoverflow.com/questions/6926016/nodejs-saving-a-base64-encoded-image-to-disk
 **SUN NOV 15th FINISHED CHECKPOINT**
-- [ ] Downsample or generate different sizes programmatically
+- [x] Downsample or generate different sizes programmatically
     - https://www.npmjs.com/package/sharp
 - [x] Export all layers separately for one to be shown in intro-page
 
 ## Generate Examples Instructions
-TODO, likely Node-based
+See script folder

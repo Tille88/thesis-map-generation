@@ -15,7 +15,8 @@
     "d3-scale": "^3.2.3",
     "http-server": "^0.12.3",
     "ol": "^5.1.2",
-    "puppeteer": "^5.4.1"
+    "puppeteer": "^5.4.1",
+    "sharp": "^0.26.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.6",
