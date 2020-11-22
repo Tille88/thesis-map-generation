@@ -42,10 +42,10 @@ Exportable map examples for GIS thesis on opacity-mapping
     - [x] location of marker storage - Data point as fraction x and y dimension
     - [x] hard coded version (in canvas)
     - [x] <strike>overlay pulsing CSS version</strike> for web version really
-- [ ] Generate test images, and use browser API to save as large image files
-    - [ ] All color combinations
-    - [ ] All legend alternatives per color
-    - [ ] Version with hard coded marker and without
+- [x] Generate test images, and use browser API to save as large image files
+    - [x] All color combinations
+    - [x] All legend alternatives per color
+    - [x] Version with hard coded marker and without
     - https://github.com/puppeteer/puppeteer/ (get image src to disk)
     - https://attacomsian.com/blog/nodejs-base64-encode-decode
     - https://stackoverflow.com/questions/6926016/nodejs-saving-a-base64-encoded-image-to-disk

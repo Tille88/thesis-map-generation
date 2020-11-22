@@ -79,7 +79,8 @@ let markerPos = [
     {"xPx":531,"yPx":714},
     {"xPx":484,"yPx":233},
     {"xPx":553,"yPx":664},
-    {"xPx":244,"yPx":338},
+    // {"xPx":244,"yPx":338},
+    {"xPx":483,"yPx":338},
     {"xPx":310,"yPx":741},
     {"xPx":252,"yPx":292},
     {"xPx":436,"yPx":345},
@@ -88,7 +89,8 @@ let markerPos = [
     {"xPx":511,"yPx":727},
     {"xPx":590,"yPx":179},
     {"xPx":571,"yPx":461},
-    {"xPx":154,"yPx":202},
+    // {"xPx":154,"yPx":202},
+    {"xPx":400,"yPx":412},
     {"xPx":625,"yPx":422},
     {"xPx":411,"yPx":490},
     {"xPx":322,"yPx":360},
@@ -158,9 +160,11 @@ dataDims.forEach((dataDims, idx) => {
     fallOff != fallOff;
 });
 
-// console.log(configList);
-// let map = CreateOpacityMap(configList[0]);
+// let map = CreateOpacityMap(configList[450]);
 // map.init();
+// configList = configList.filter((el) => {
+//     return el.version == 7;
+// });
 
 f.load().then(() =>{
     configList.forEach((config, idx) => {
@@ -186,64 +190,4 @@ f.load().then(() =>{
 
 
 
-
-// function resetConfigs(){
-//     configs.dataDimensions = {
-//         xMin: randomFloat(0.1, 0.3, 2),
-//         xMax: randomFloat(0.6, 0.75, 2),
-//         yMin: randomFloat(0.1, 0.3, 2),
-//         yMax: randomFloat(0.6, 0.9, 2)
-//     };
-//     configs.fallOff != configs.fallOff;
-//     configs.opacitySeed += 100;
-//     // console.log(configs);
-//     // console.log(legendTypesEnum);
-// }
-
-// // let map = CreateOpacityMap(configs);
-// // map.init();
-
-
-// // BACKUP
-// f.load().then(() =>{
-//     resetConfigs();
-//     Object.values(legendTypesEnum).forEach((legendType, index) => {
-//         setTimeout(function(){
-//             configs.legendType = legendType;
-//             // RED
-//             let map = CreateOpacityMap(configs);
-//             map.init().then(() => {
-//                 console.log("map.markerInfo ", map.markerInfo);
-//             });
-//             setTimeout(function(){
-//                 let image = map.save();
-//                 const event = new CustomEvent('image-data', { detail: image.src });
-//                 document.dispatchEvent(event);
-//             }, 500);
-//             // GREEN
-//             // configs.opacityCol = opColChoiceEnum.g
-//             // let map = CreateOpacityMap(configs);
-//             // map.init().then(() => {
-//             //     // console.log("map.markerInfo ", map.markerInfo);
-//             // });
-//             // configs.opacityCol = opColChoiceEnum.g
-    
-//             // configs.opacityCol = col;
-//         }, index * 2000);
-//     });
-// });
-
-
-
-
-
-
-
-// resetConfigs();
-
-// setTimeout(() => {
-//     let image = map.save();
-//     const event = new CustomEvent('image-data', { detail: image.src });
-//     document.dispatchEvent(event);
-// }, 2000);
 
