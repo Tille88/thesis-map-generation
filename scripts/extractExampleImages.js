@@ -2,22 +2,19 @@ const puppeteer = require('puppeteer');
 const fs = require("fs");
 
 (async () => {
-  const browser = await puppeteer.launch({headless: false});
-  const page = await browser.newPage();
+    const browser = await puppeteer.launch({headless: false});
+    const page = await browser.newPage();
 
-
-
-
-
-//   // Define a window.onCustomEvent function on the page.
+    let fileNum = 0;
+    // Define a window.onCustomEvent function on the page.
     await page.exposeFunction('onCustomEvent', (e) => {
         // console.log(e.detail.substring(0, 100));
         var base64Data = e.detail.replace(/^data:image\/png;base64,/, "");
         // console.log(base64Data.substring(0, 100));
-        fs.writeFile(__dirname + "/out.png", base64Data, 'base64', function(err) {
+        fs.writeFile(__dirname + `/out${++fileNum}.png`, base64Data, 'base64', function(err) {
             console.log(err);
         });
-      });
+    });
     
     //   /**
     //    * Attach an event listener to page to capture a custom event.
