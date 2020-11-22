@@ -8,12 +8,16 @@ const fs = require("fs");
     let fileNum = 0;
     // Define a window.onCustomEvent function on the page.
     await page.exposeFunction('onCustomEvent', (e) => {
-        // console.log(e.detail.substring(0, 100));
-        var base64Data = e.detail.replace(/^data:image\/png;base64,/, "");
-        // console.log(base64Data.substring(0, 100));
-        fs.writeFile(__dirname + `/out${++fileNum}.png`, base64Data, 'base64', function(err) {
+        var base64Data = e.detail.img.replace(/^data:image\/png;base64,/, "");
+        let meta = e.detail.meta;
+        let fileNameBase = `0${meta.version}-${meta.colRead}-${meta.legendType}-${meta.mergeCanvas}`;
+        fs.writeFile(__dirname + `/${meta.mergeCanvas}/${fileNameBase}.json`, JSON.stringify(meta, false, 2), function(err) {
             console.log(err);
         });
+        fs.writeFile(__dirname + `/${meta.mergeCanvas}/${fileNameBase}.png`, base64Data, 'base64', function(err) {
+            console.log(err);
+        });
+        console.log("Written file", ++fileNum, " out of 600-sth");
     });
     
     //   /**

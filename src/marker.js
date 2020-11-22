@@ -10,25 +10,29 @@ export const CreateMarker = function({
         yMin: 0.2,
         yMax: 0.8
         },
+    xPx = null,
+    yPx = null,
     mergeCanvas = true
 } = {}){
     return {
-        xPx: null,
+        xPx,
+        yPx,
         relX: null,
-        yPx: null,
         relY: null,
         svgMarkerElement: null,
         render: function(){
-            let xPx = this.xPx = randomInt(range.xMinPx, range.xMaxPx);
-            let yPx = this.yPx = randomInt(range.yMinPx, range.yMaxPx);
+            if(!this.xPx || !this.yPx){
+                this.xPx = randomInt(range.xMinPx, range.xMaxPx);
+                this.yPx = randomInt(range.yMinPx, range.yMaxPx);
+            }
             let {width, height} = getCanvasDims();
-            this.relX = xPx/width;
-            this.relY = yPx/height;
-            // canvasMarker(xPx, yPx);
+            this.relX = this.xPx/width;
+            this.relY = this.yPx/height;
+            // canvasMarker(this.xPx, this.yPx);
             if(mergeCanvas == mergeAlternatives.svg){
-                    svgMarker.call(this, xPx,yPx);
+                    svgMarker.call(this, this.xPx,this.yPx);
             } else if(mergeCanvas == mergeAlternatives.merge){
-                        svgMarker.call(this, xPx,yPx);
+                        svgMarker.call(this, this.xPx,this.yPx);
                         combineSvgCanvas.call(this);
             } else if(mergeCanvas == mergeAlternatives.noRender){
                 

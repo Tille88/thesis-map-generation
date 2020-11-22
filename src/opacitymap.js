@@ -18,7 +18,11 @@ export const CreateOpacityMap = function({
     mergeCanvas = mergeAlternatives.merge,
     legendType = legendTypesEnum.annotatedOutline,
     opacityCol = opColChoiceEnum.r,
-    opacitySeed = 123
+    opacitySeed = 123,
+    markerPos = {
+        xPx: null,
+        yPx: null
+    }
 } = {}){
     let noiseData = null;
     return {
@@ -48,11 +52,12 @@ export const CreateOpacityMap = function({
                     .then(() => {
                         let marker = CreateMarker({
                             range: getDataAreaPixelDims(dataDimensions),
-                            mergeCanvas
+                            mergeCanvas,
+                            xPx: markerPos.xPx,
+                            yPx: markerPos.yPx
                         });
                         marker.render();
                         let dataVal = 100 * noiseData.getOpacityForCoord(marker.xPx, marker.yPx);
-                        console.log(marker, dataVal);
                         this.markerInfo = {
                             xPx: marker.xPx,
                             relX: marker.relX,
